@@ -1,6 +1,9 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import Stats from 'three/addons/libs/stats.module.js'
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js'
+
+const gui = new GUI();
 
 const stats = new Stats()
 document.body.appendChild(stats.dom)
@@ -37,3 +40,13 @@ function animate() {
 	renderer.render(scene, camera);
 
 }
+
+window.addEventListener("resize", () => {
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+})
+
+const folder = gui.addFolder("Cube");
+folder.add(cube.position, "x", -2, 2, 0.1).name("Posizione orizzontale");
+folder.addColor(cube.material, "color");
